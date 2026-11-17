@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:gravity="center"
-    android:background="@color/tv_background"
     android:padding="40dp">
 
     <!-- 左侧：重启 -->

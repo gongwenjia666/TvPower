@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- 无标题栏，适配电视大屏 -->
+    <!-- 无标题栏，适配电视大屏；窗口本身透明，可透出电视桌面 -->
     <style name="Theme.TvPower" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <!-- 显式指定不透明窗口背景：不写这一项时，部分电视固件会把窗口渲染成透明，直接透出桌面 -->
-        <item name="android:windowBackground">@color/tv_background</item>
-        <item name="android:colorBackground">@color/tv_background</item>
+        <!-- 窗口背景设为透明：这是"透出桌面"的核心，必须是 transparent 而不是某个颜色 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
 
-        <!-- 明确关闭透明/悬浮窗口，避免继承到 Translucent 属性 -->
-        <item name="android:windowIsTranslucent">false</item>
+        <!-- 开启窗口透明，允许下层（电视桌面）继续绘制 -->
+        <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowNoTitle">true</item>
 
-        <!-- Android 12+ 启动画面背景，避免冷启动瞬间先透出桌面 -->
-        <item name="android:windowSplashScreenBackground" tools:targetApi="31">@color/tv_background</item>
+        <!-- 不要给下层压暗，否则桌面会蒙一层灰 -->
+        <item name="android:backgroundDimEnabled">false</item>
+
+        <!-- 显示桌面而不是壁纸 -->
+        <item name="android:windowShowWallpaper">false</item>
+
+        <!-- Android 12+ 启动画面也设透明，避免冷启动先闪一块底色 -->
+        <item name="android:windowSplashScreenBackground" tools:targetApi="31">@android:color/transparent</item>
     </style>
 </resources>
