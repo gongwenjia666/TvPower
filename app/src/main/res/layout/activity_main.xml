@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="40dp">
+
+    <!-- 左侧：重启盒子 -->
+    <Button
+        android:id="@+id/btnReboot"
+        android:layout_width="280dp"
+        android:layout_height="88dp"
+        android:text="🔄 重启盒子"
+        android:textSize="26sp"
+        android:background="@drawable/btn_tv_bg"
+        android:textColor="@color/btn_tv_text"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:nextFocusRight="@id/btnShutdown">
+
+        <!-- 进入界面默认焦点落在左侧“重启盒子” -->
+        <requestFocus />
+    </Button>
+
+    <!-- 中间：关机 -->
+    <Button
+        android:id="@+id/btnShutdown"
+        android:layout_width="280dp"
+        android:layout_height="88dp"
+        android:layout_marginStart="28dp"
+        android:text="⏻ 关机"
+        android:textSize="26sp"
+        android:background="@drawable/btn_tv_bg"
+        android:textColor="@color/btn_tv_text"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:nextFocusLeft="@id/btnReboot"
+        android:nextFocusRight="@id/btnSleep" />
+
+    <!-- 右侧：睡眠息屏 -->
+    <Button
+        android:id="@+id/btnSleep"
+        android:layout_width="280dp"
+        android:layout_height="88dp"
+        android:layout_marginStart="28dp"
+        android:text="💤 睡眠息屏"
+        android:textSize="26sp"
+        android:background="@drawable/btn_tv_bg"
+        android:textColor="@color/btn_tv_text"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:nextFocusLeft="@id/btnShutdown" />
+
+</LinearLayout>

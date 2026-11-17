@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 遥控器聚焦态：深蓝底 + 白色描边，电视远距离一眼能看出选中项 -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#1565C0" />
+            <corners android:radius="16dp" />
+            <stroke android:width="2dp" android:color="#FFFFFF" />
+        </shape>
+    </item>
+
+    <!-- 按压态（确认键按下瞬间）：更深的蓝 -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#0D47A1" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+    <!-- 默认态：浅灰底 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#ECEFF1" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+</selector>
