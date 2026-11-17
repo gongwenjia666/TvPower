@@ -13,9 +13,14 @@
 
         <item name="android:windowNoTitle">true</item>
 
-        <!-- 不压暗身后桌面 -->
+        <!-- 不压暗身后内容 -->
         <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowShowWallpaper">false</item>
+
+        <!-- 允许透出桌面壁纸：桌面窗口一旦被系统移出合成，至少还有壁纸，不会直接变纯黑 -->
+        <item name="android:windowShowWallpaper">true</item>
+
+        <!-- 关掉启动预览窗，避免冷启动先闪一下白（白闪就是系统默认启动窗口的底色） -->
+        <item name="android:windowDisablePreview">true</item>
 
         <!-- Android 12+ 启动画面同样透明，避免冷启动闪底色 -->
         <item name="android:windowSplashScreenBackground" tools:targetApi="31">@android:color/transparent</item>
