@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- 无标题栏；窗口做成悬浮小窗，尺寸由布局决定，背景透明可透出电视桌面 -->
+    <!-- 全屏透明窗口：不铺底、不压暗，只有布局里的按钮可见，视觉上等同于悬浮小窗 -->
     <style name="Theme.TvPower" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <!-- 悬浮小窗：窗口按内容大小收缩，不铺满全屏 -->
-        <item name="android:windowIsFloating">true</item>
+        <!-- 关键：必须是"透明全屏窗口"，而不是 windowIsFloating 的浮动窗口。
+             浮动窗口会被系统当作对话框处理，部分机型在首帧之后铺一层不透明底色 -->
+        <item name="android:windowIsFloating">false</item>
         <item name="android:windowIsTranslucent">true</item>
 
-        <!-- 背景全透明，小窗之外直接看到桌面 -->
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackground">@android:color/transparent</item>
 
@@ -16,13 +16,6 @@
         <!-- 不压暗身后桌面 -->
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowShowWallpaper">false</item>
-
-        <!-- 去掉系统窗口边框，小窗只由布局自己绘制 -->
-        <item name="android:windowFrame">@null</item>
-
-        <!-- 取消悬浮窗口默认的最小宽度（默认约屏幕 65%，会把小窗拉宽） -->
-        <item name="android:windowMinWidthMajor">0%</item>
-        <item name="android:windowMinWidthMinor">0%</item>
 
         <!-- Android 12+ 启动画面同样透明，避免冷启动闪底色 -->
         <item name="android:windowSplashScreenBackground" tools:targetApi="31">@android:color/transparent</item>

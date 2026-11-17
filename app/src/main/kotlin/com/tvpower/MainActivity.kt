@@ -1,5 +1,7 @@
 package com.tvpower
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -15,6 +17,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 代码层双保险：主题若被某些 ROM 覆盖成不透明，这里再强制把窗口背景清成透明
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         setContentView(R.layout.activity_main)
 
         btnReboot = findViewById(R.id.btnReboot)
