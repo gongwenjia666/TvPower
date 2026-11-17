@@ -60,13 +60,13 @@ TvPower/
 4. 编译成功后：
    - 在 Action 运行记录的 **Artifacts** 下载 `TvPower-APK`；
    - 同时自动发布到 Releases（tag: `v1.0`）。
-5. 产出文件名：`TvPower_debug_v1.0.apk`。
+5. 产出文件名：`TvPower-v1.0-debug.apk`。
 
 ## 安装到盒子
 
 ```bash
 # 盒子开启 ADB 调试后，USB / 网络连接执行
-adb install TvPower_debug_v1.0.apk
+adb install TvPower-v1.0-debug.apk
 ```
 
 ## 技术参数

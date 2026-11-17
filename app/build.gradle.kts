@@ -13,6 +13,9 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        // 极简、跨版本稳定的 APK 命名：TvPower-v1.0-debug.apk
+        setProperty("archivesBaseName", "TvPower-v${versionName}")
     }
 
     buildTypes {
@@ -34,13 +37,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-
-    // 自定义输出 APK 文件名：TvPower_debug_v1.0.apk / TvPower_release_v1.0.apk
-    applicationVariants.all {
-        variant.outputs.all {
-            outputFileName = "TvPower_${variant.name}_v${variant.versionName}.apk"
-        }
     }
 }
 
