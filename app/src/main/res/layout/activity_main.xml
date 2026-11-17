@@ -6,12 +6,12 @@
     android:gravity="center"
     android:padding="40dp">
 
-    <!-- 左侧：重启盒子 -->
+    <!-- 左侧：重启 -->
     <Button
         android:id="@+id/btnReboot"
         android:layout_width="280dp"
         android:layout_height="88dp"
-        android:text="🔄 重启盒子"
+        android:text="@string/btn_reboot"
         android:textSize="26sp"
         android:background="@drawable/btn_tv_bg"
         android:textColor="@color/btn_tv_text"
@@ -19,7 +19,7 @@
         android:focusableInTouchMode="true"
         android:nextFocusRight="@id/btnShutdown">
 
-        <!-- 进入界面默认焦点落在左侧“重启盒子” -->
+        <!-- 进入界面默认焦点落在左侧“重启” -->
         <requestFocus />
     </Button>
 
@@ -29,7 +29,7 @@
         android:layout_width="280dp"
         android:layout_height="88dp"
         android:layout_marginStart="28dp"
-        android:text="⏻ 关机"
+        android:text="@string/btn_shutdown"
         android:textSize="26sp"
         android:background="@drawable/btn_tv_bg"
         android:textColor="@color/btn_tv_text"
@@ -38,13 +38,13 @@
         android:nextFocusLeft="@id/btnReboot"
         android:nextFocusRight="@id/btnSleep" />
 
-    <!-- 右侧：睡眠息屏 -->
+    <!-- 右侧：睡眠 -->
     <Button
         android:id="@+id/btnSleep"
         android:layout_width="280dp"
         android:layout_height="88dp"
         android:layout_marginStart="28dp"
-        android:text="💤 睡眠息屏"
+        android:text="@string/btn_sleep"
         android:textSize="26sp"
         android:background="@drawable/btn_tv_bg"
         android:textColor="@color/btn_tv_text"

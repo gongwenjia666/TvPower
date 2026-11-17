@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TvPower 盒子电源</string>
+    <string name="app_name">电源</string>
+
+    <string name="btn_reboot">重启</string>
+    <string name="btn_shutdown">关机</string>
+    <string name="btn_sleep">睡眠</string>
+
+    <string name="confirm_reboot_msg">确定要现在重启吗？</string>
+    <string name="confirm_shutdown_msg">确定要现在关机吗？</string>
+    <string name="toast_no_root">执行失败：未获取 ROOT 权限</string>
+    <string name="dialog_ok">确定</string>
+    <string name="dialog_cancel">取消</string>
 </resources>

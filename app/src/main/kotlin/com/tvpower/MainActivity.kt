@@ -23,14 +23,14 @@ class MainActivity : AppCompatActivity() {
 
         // 重启：二次确认后执行 reboot
         btnReboot.setOnClickListener {
-            confirmAction("重启盒子", "确定要现在重启吗？") {
+            confirmAction(getString(R.string.btn_reboot), getString(R.string.confirm_reboot_msg)) {
                 execRootCmd("reboot")
             }
         }
 
         // 关机：二次确认后执行 reboot -p（部分海思固件可改用 poweroff）
         btnShutdown.setOnClickListener {
-            confirmAction("关机", "确定要现在关机吗？") {
+            confirmAction(getString(R.string.btn_shutdown), getString(R.string.confirm_shutdown_msg)) {
                 execRootCmd("reboot -p")
             }
         }
@@ -38,10 +38,10 @@ class MainActivity : AppCompatActivity() {
         // 睡眠：模拟电源键息屏，可逆，不弹确认
         btnSleep.setOnClickListener {
             val ok = execRootCmd("input keyevent KEYCODE_POWER")
-            if (!ok) toast("执行失败：未获取 ROOT 权限")
+            if (!ok) toast(getString(R.string.toast_no_root))
         }
 
-        // 兜底：进入界面把焦点给到“重启盒子”，保证遥控器首键即可操作
+        // 兜底：进入界面把焦点给到“重启”，保证遥控器首键即可操作
         btnReboot.requestFocus()
     }
 
@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton("确定") { _, _ -> action() }
-            .setNegativeButton("取消", null)
+            .setPositiveButton(R.string.dialog_ok) { _, _ -> action() }
+            .setNegativeButton(R.string.dialog_cancel, null)
             .show()
     }
 
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             su.waitFor()
             true
         } catch (e: Exception) {
-            toast("执行失败：未获取 ROOT 权限")
+            toast(getString(R.string.toast_no_root))
             false
         }
     }
