@@ -1,0 +1,16 @@
+# Gradle / Android
+.gradle/
+build/
+*.iml
+local.properties
+.DS_Store
+
+# 签名材料：绝对不要提交进仓库
+keystore.properties
+signing/
+*.jks
+*.keystore
+
+# CI 产物
+dist/
+CHANGELOG.md
