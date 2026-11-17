@@ -26,19 +26,33 @@ jobs:
         with:
           gradle-version: '8.2'
 
-      - name: Build Debug APK
-        run: gradle assembleDebug --no-daemon
+      - name: Build Release APK
+        run: gradle assembleRelease --no-daemon
+
+      - name: Package APK
+        run: |
+          set -euo pipefail
+          VERSION_NAME="1.0.${GITHUB_RUN_NUMBER}"
+          mkdir -p dist
+          for f in app/build/outputs/apk/release/*.apk; do
+            cp "$f" "dist/TvPower-v${VERSION_NAME}.apk"
+          done
+          echo "VERSION_NAME=${VERSION_NAME}" >> "$GITHUB_ENV"
+          ls -l dist
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TvPower-APK
-          path: app/build/outputs/apk/**/*.apk
+          name: TvPower-v${{ env.VERSION_NAME }}
+          path: dist/*.apk
 
       - name: Create Release
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          name: TvPower v1.0
-          tag_name: v1.0
-          files: app/build/outputs/apk/**/*.apk
+          tag_name: v${{ env.VERSION_NAME }}
+          name: TvPower v${{ env.VERSION_NAME }}
+          body: |
+            自动构建的 release 包，版本号取自构建序号。
+            提交：${{ github.sha }}
+          files: dist/*.apk
