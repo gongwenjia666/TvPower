@@ -4,7 +4,7 @@
 
     <string name="btn_reboot">重启</string>
     <string name="btn_shutdown">关机</string>
-    <string name="btn_sleep">睡眠</string>
+    <string name="btn_sleep">休眠</string>
 
     <string name="confirm_reboot_msg">确定要现在重启吗？</string>
     <string name="confirm_shutdown_msg">确定要现在关机吗？</string>

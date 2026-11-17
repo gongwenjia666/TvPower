@@ -1,0 +1,51 @@
+name: Build branch APK (test)
+
+# 实验分支专用：只产出可下载的 APK 工件，不建 Release、不打 tag，避免污染正式版本列表
+on:
+  push:
+    branches-ignore: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up Gradle 8.2
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.2'
+
+      - name: Build Debug APK
+        run: gradle assembleDebug --no-daemon
+
+      - name: Rename APK
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          BRANCH=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
+          for f in app/build/outputs/apk/debug/*.apk; do
+            cp "$f" "dist/TvPower-test-${BRANCH}-${GITHUB_SHA::7}.apk"
+          done
+          ls -l dist
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: TvPower-test-${{ github.ref_name }}-${{ github.run_number }}
+          path: dist/*.apk

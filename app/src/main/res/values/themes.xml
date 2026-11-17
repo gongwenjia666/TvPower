@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- 无标题栏，适配电视大屏 -->
-    <style name="Theme.TvPower" parent="Theme.AppCompat.Light.NoActionBar" />
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- 全屏透明窗口：不铺底、不压暗，只有布局里的按钮可见，视觉上等同于悬浮小窗 -->
+    <style name="Theme.TvPower" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- 关键：必须是"透明全屏窗口"，而不是 windowIsFloating 的浮动窗口。
+             浮动窗口会被系统当作对话框处理，部分机型在首帧之后铺一层不透明底色 -->
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- 不压暗身后内容 -->
+        <item name="android:backgroundDimEnabled">false</item>
+
+        <!-- 允许透出桌面壁纸：桌面窗口一旦被系统移出合成，至少还有壁纸，不会直接变纯黑 -->
+        <item name="android:windowShowWallpaper">true</item>
+
+        <!-- 关掉启动预览窗，避免冷启动先闪一下白（白闪就是系统默认启动窗口的底色） -->
+        <item name="android:windowDisablePreview">true</item>
+
+        <!-- Android 12+ 启动画面同样透明，避免冷启动闪底色 -->
+        <item name="android:windowSplashScreenBackground" tools:targetApi="31">@android:color/transparent</item>
+    </style>
 </resources>

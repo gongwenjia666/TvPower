@@ -1,55 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 透明全屏布局：根布局不涂任何底色，只把三个按钮排成一块竖条贴在右侧，
+     视觉上是一块"悬浮小窗"，但窗口本身是全屏透明的，避开浮动窗口被系统铺底的问题 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:gravity="center"
-    android:padding="40dp">
+    android:padding="32dp">
 
-    <!-- 左侧：重启 -->
-    <Button
-        android:id="@+id/btnReboot"
-        android:layout_width="280dp"
-        android:layout_height="88dp"
-        android:text="@string/btn_reboot"
-        android:textSize="26sp"
-        android:background="@drawable/btn_tv_bg"
-        android:textColor="@color/btn_tv_text"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:nextFocusRight="@id/btnShutdown">
+    <!-- 三条按钮的容器：固定宽度，竖排 -->
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <!-- 进入界面默认焦点落在左侧“重启” -->
-        <requestFocus />
-    </Button>
+        <!-- 最上：关机，进入界面默认焦点落在这里 -->
+        <Button
+            android:id="@+id/btnShutdown"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:text="@string/btn_shutdown"
+            android:textSize="24sp"
+            android:background="@drawable/btn_tv_bg"
+            android:textColor="@color/btn_tv_text"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusDown="@id/btnSleep">
 
-    <!-- 中间：关机 -->
-    <Button
-        android:id="@+id/btnShutdown"
-        android:layout_width="280dp"
-        android:layout_height="88dp"
-        android:layout_marginStart="28dp"
-        android:text="@string/btn_shutdown"
-        android:textSize="26sp"
-        android:background="@drawable/btn_tv_bg"
-        android:textColor="@color/btn_tv_text"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:nextFocusLeft="@id/btnReboot"
-        android:nextFocusRight="@id/btnSleep" />
+            <requestFocus />
+        </Button>
 
-    <!-- 右侧：睡眠 -->
-    <Button
-        android:id="@+id/btnSleep"
-        android:layout_width="280dp"
-        android:layout_height="88dp"
-        android:layout_marginStart="28dp"
-        android:text="@string/btn_sleep"
-        android:textSize="26sp"
-        android:background="@drawable/btn_tv_bg"
-        android:textColor="@color/btn_tv_text"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:nextFocusLeft="@id/btnShutdown" />
+        <!-- 中间：休眠 -->
+        <Button
+            android:id="@+id/btnSleep"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/btn_sleep"
+            android:textSize="24sp"
+            android:background="@drawable/btn_tv_bg"
+            android:textColor="@color/btn_tv_text"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusUp="@id/btnShutdown"
+            android:nextFocusDown="@id/btnReboot" />
+
+        <!-- 最下：重启 -->
+        <Button
+            android:id="@+id/btnReboot"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/btn_reboot"
+            android:textSize="24sp"
+            android:background="@drawable/btn_tv_bg"
+            android:textColor="@color/btn_tv_text"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusUp="@id/btnSleep" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 备用不透明背景色：当前主题走透明方案，此色仅在需要恢复实心底时启用 -->
+    <color name="tv_background">#0E1116</color>
+</resources>
