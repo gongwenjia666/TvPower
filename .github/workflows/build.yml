@@ -47,9 +47,11 @@ jobs:
           set -euo pipefail
           # 统一按北京时间取日期，避免 CI 的 UTC 错位
           DATE=$(TZ=Asia/Shanghai date +%Y.%m.%d)
-          # 当日第几次发布：已有 tag 数 + 1
-          SEQ=$(( $(git tag -l "v${DATE}.*" | wc -l) + 1 ))
-          VERSION_NAME="${DATE}.v${SEQ}"
+          # 当日第几次发布：新格式 tag（v日期_序号）+ 历史旧格式 tag（v日期.序号）一并计数，避免序号回退
+          OLD_SEQ=$(git tag -l "v${DATE}.*" | wc -l)
+          NEW_SEQ=$(git tag -l "v${DATE}_*" | wc -l)
+          SEQ=$(( OLD_SEQ + NEW_SEQ + 1 ))
+          VERSION_NAME="v${DATE}_${SEQ}"
           YMD=$(TZ=Asia/Shanghai date +%Y%m%d)
           # versionCode = yyyymmdd + 两位当日序号，10 位整数，单调递增
           VERSION_CODE="${YMD}$(printf '%02d' "$SEQ")"
@@ -114,7 +116,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ env.VERSION_NAME }}
+          tag_name: ${{ env.VERSION_NAME }}
           name: TvPower ${{ env.VERSION_NAME }}
           body: ${{ env.CHANGELOG }}
           make_latest: true # 显式声明本条为最新，避免并发时标记落错

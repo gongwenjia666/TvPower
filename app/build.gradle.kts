@@ -8,14 +8,14 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-// ---------- 日期版本号：2026.11.17.v1 ----------
-// 版本名由 CI 计算通过环境变量传入（同日递增 v2、v3…，跨日重置）；
-// 本地直接构建时退化为「当天日期 + .v1」。
+// ---------- 日期版本号：v2026.11.18_1 ----------
+// 版本名由 CI 计算通过环境变量传入（同日递增 _2、_3…，跨日重置为 _1）；
+// 本地直接构建时退化为「当天日期 + _1」。
 val cnToday: LocalDate = LocalDate.now(ZoneId.of("Asia/Shanghai"))
 val datePart = cnToday.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 val fallbackVersionCode = cnToday.format(DateTimeFormatter.ofPattern("yyyyMMdd")).toInt() * 100 + 1
 
-val resolvedVersionName = System.getenv("VERSION_NAME")?.takeIf { it.isNotBlank() } ?: "$datePart.v1"
+val resolvedVersionName = System.getenv("VERSION_NAME")?.takeIf { it.isNotBlank() } ?: "v${datePart}_1"
 val resolvedVersionCode = System.getenv("VERSION_CODE")?.toIntOrNull() ?: fallbackVersionCode
 
 // Android 的 versionCode 是 int，上限 2,100,000,000；超了会在安装/上架时直接报错
@@ -50,7 +50,7 @@ android {
         targetSdk = 34
 
         versionCode = resolvedVersionCode            // 2026111701 这种 10 位整数，单调递增
-        versionName = resolvedVersionName            // 2026.11.17.v1
+        versionName = resolvedVersionName            // v2026.11.18_1 这种带 v 前缀、下划线序号的写法
 
         setProperty("archivesBaseName", "TvPower")   // 产物名：TvPower-release.apk
     }
