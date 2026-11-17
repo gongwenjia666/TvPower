@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- 最上：关机 -->
+        <!-- 最上：关机，进入界面默认焦点落在这里 -->
         <Button
             android:id="@+id/btnShutdown"
             android:layout_width="match_parent"
@@ -25,7 +25,10 @@
             android:textColor="@color/btn_tv_text"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:nextFocusDown="@id/btnSleep" />
+            android:nextFocusDown="@id/btnSleep">
+
+            <requestFocus />
+        </Button>
 
         <!-- 中间：休眠 -->
         <Button
@@ -42,7 +45,7 @@
             android:nextFocusUp="@id/btnShutdown"
             android:nextFocusDown="@id/btnReboot" />
 
-        <!-- 最下：重启，进入界面默认焦点落在这里 -->
+        <!-- 最下：重启 -->
         <Button
             android:id="@+id/btnReboot"
             android:layout_width="match_parent"
@@ -54,10 +57,7 @@
             android:textColor="@color/btn_tv_text"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:nextFocusUp="@id/btnSleep">
-
-            <requestFocus />
-        </Button>
+            android:nextFocusUp="@id/btnSleep" />
 
     </LinearLayout>
 

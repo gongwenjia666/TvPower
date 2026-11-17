@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
             if (!ok) toast(getString(R.string.toast_no_root))
         }
 
-        // 兜底：进入界面把焦点给到“重启”，保证遥控器首键即可操作
-        btnReboot.requestFocus()
+        // 兜底：进入界面把焦点给到最上面的“关机”，与布局里的 requestFocus 保持一致
+        btnShutdown.requestFocus()
     }
 
     /**
