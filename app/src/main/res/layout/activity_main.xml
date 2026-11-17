@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_vertical|end"
+    android:gravity="center"
     android:padding="32dp">
 
     <!-- 三条按钮的容器：固定宽度，竖排 -->

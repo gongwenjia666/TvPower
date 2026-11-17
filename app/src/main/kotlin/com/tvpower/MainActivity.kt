@@ -5,7 +5,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.io.DataOutputStream
 
@@ -27,18 +26,16 @@ class MainActivity : AppCompatActivity() {
         btnShutdown = findViewById(R.id.btnShutdown)
         btnSleep = findViewById(R.id.btnSleep)
 
-        // 重启：二次确认后执行 reboot
+        // 重启：直接执行 reboot，不再弹二次确认
         btnReboot.setOnClickListener {
-            confirmAction(getString(R.string.btn_reboot), getString(R.string.confirm_reboot_msg)) {
-                execRootCmd("reboot")
-            }
+            val ok = execRootCmd("reboot")
+            if (!ok) toast(getString(R.string.toast_no_root))
         }
 
-        // 关机：二次确认后执行 reboot -p（部分海思固件可改用 poweroff）
+        // 关机：直接执行 reboot -p（部分海思固件可改用 poweroff）
         btnShutdown.setOnClickListener {
-            confirmAction(getString(R.string.btn_shutdown), getString(R.string.confirm_shutdown_msg)) {
-                execRootCmd("reboot -p")
-            }
+            val ok = execRootCmd("reboot -p")
+            if (!ok) toast(getString(R.string.toast_no_root))
         }
 
         // 睡眠：模拟电源键息屏，可逆，不弹确认
@@ -49,16 +46,6 @@ class MainActivity : AppCompatActivity() {
 
         // 兜底：进入界面把焦点给到“重启”，保证遥控器首键即可操作
         btnReboot.requestFocus()
-    }
-
-    /** 二次确认弹窗，确定/取消按钮同样支持遥控器左右键切换 + 确认键触发 */
-    private fun confirmAction(title: String, message: String, action: () -> Unit) {
-        AlertDialog.Builder(this)
-            .setTitle(title)
-            .setMessage(message)
-            .setPositiveButton(R.string.dialog_ok) { _, _ -> action() }
-            .setNegativeButton(R.string.dialog_cancel, null)
-            .show()
     }
 
     /**
