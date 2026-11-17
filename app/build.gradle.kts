@@ -1,18 +1,26 @@
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
 
-// ---------- 版本号自动递增 ----------
-// CI 上取 GitHub Actions 的 run number，每次构建 +1；本地取 git 提交数作为兜底
-val buildNumber: Int =
-    System.getenv("GITHUB_RUN_NUMBER")?.toIntOrNull()
-        ?: providers.exec {
-            commandLine("git", "rev-list", "--count", "HEAD")
-        }.standardOutput.asText.get().trim().toIntOrNull()
-        ?: 1
+// ---------- 日期版本号：2026.11.17.v1 ----------
+// 版本名由 CI 计算通过环境变量传入（同日递增 v2、v3…，跨日重置）；
+// 本地直接构建时退化为「当天日期 + .v1」。
+val cnToday: LocalDate = LocalDate.now(ZoneId.of("Asia/Shanghai"))
+val datePart = cnToday.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+val fallbackVersionCode = cnToday.format(DateTimeFormatter.ofPattern("yyyyMMdd")).toInt() * 100 + 1
 
-val baseVersion = "1.0"
+val resolvedVersionName = System.getenv("VERSION_NAME")?.takeIf { it.isNotBlank() } ?: "$datePart.v1"
+val resolvedVersionCode = System.getenv("VERSION_CODE")?.toIntOrNull() ?: fallbackVersionCode
+
+// Android 的 versionCode 是 int，上限 2,100,000,000；超了会在安装/上架时直接报错
+require(resolvedVersionCode in 1..2_100_000_000) {
+    "versionCode=${resolvedVersionCode} 超出 Android 允许范围"
+}
 
 android {
     namespace = "com.tvpower"
@@ -23,8 +31,8 @@ android {
         minSdk = 24          // 安卓 7.0 起步，兼容安卓 9 盒子
         targetSdk = 34
 
-        versionCode = buildNumber                    // 必须是单调递增的整数
-        versionName = "$baseVersion.$buildNumber"    // 形如 1.0.12
+        versionCode = resolvedVersionCode            // 2026111701 这种 10 位整数，单调递增
+        versionName = resolvedVersionName            // 2026.11.17.v1
 
         setProperty("archivesBaseName", "TvPower")   // 产物名：TvPower-release.apk
     }
