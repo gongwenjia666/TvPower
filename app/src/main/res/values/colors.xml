@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 应用窗口背景：深色，保证不透明、不与电视桌面叠影 -->
+    <color name="tv_background">#0E1116</color>
+</resources>
