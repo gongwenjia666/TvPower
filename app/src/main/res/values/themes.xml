@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- 无标题栏，适配电视大屏；窗口本身透明，可透出电视桌面 -->
+    <!-- 无标题栏；窗口做成悬浮小窗，尺寸由布局决定，背景透明可透出电视桌面 -->
     <style name="Theme.TvPower" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <!-- 窗口背景设为透明：这是"透出桌面"的核心，必须是 transparent 而不是某个颜色 -->
+        <!-- 悬浮小窗：窗口按内容大小收缩，不铺满全屏 -->
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+        <!-- 背景全透明，小窗之外直接看到桌面 -->
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackground">@android:color/transparent</item>
 
-        <!-- 开启窗口透明，允许下层（电视桌面）继续绘制 -->
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowIsFloating">false</item>
         <item name="android:windowNoTitle">true</item>
 
-        <!-- 不要给下层压暗，否则桌面会蒙一层灰 -->
+        <!-- 不压暗身后桌面 -->
         <item name="android:backgroundDimEnabled">false</item>
-
-        <!-- 显示桌面而不是壁纸 -->
         <item name="android:windowShowWallpaper">false</item>
 
-        <!-- Android 12+ 启动画面也设透明，避免冷启动先闪一块底色 -->
+        <!-- 去掉系统窗口边框，小窗只由布局自己绘制 -->
+        <item name="android:windowFrame">@null</item>
+
+        <!-- 取消悬浮窗口默认的最小宽度（默认约屏幕 65%，会把小窗拉宽） -->
+        <item name="android:windowMinWidthMajor">0%</item>
+        <item name="android:windowMinWidthMinor">0%</item>
+
+        <!-- Android 12+ 启动画面同样透明，避免冷启动闪底色 -->
         <item name="android:windowSplashScreenBackground" tools:targetApi="31">@android:color/transparent</item>
     </style>
 </resources>
