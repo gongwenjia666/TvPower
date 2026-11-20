@@ -2,7 +2,9 @@ package com.tvpower
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +48,30 @@ class MainActivity : AppCompatActivity() {
 
         // 兜底：进入界面把焦点给到最上面的“关机”，与布局里的 requestFocus 保持一致
         btnShutdown.requestFocus()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 回到界面时恢复绘制（onPause 里把它隐藏过）
+        window.decorView.visibility = View.VISIBLE
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // 一离开界面立即抹掉按钮层：透明窗口在系统退出动画期间仍会叠在桌面上，
+        // 这段空窗期就是"按钮比桌面晚消失"的原因，先把内容隐藏掉就不用等动画结束
+        window.decorView.visibility = View.GONE
+    }
+
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
+    override fun onBackPressed() {
+        // 先隐藏再收尾，保证返回键退出时按钮立刻消失，不跟随窗口做淡出
+        window.decorView.visibility = View.GONE
+        super.onBackPressed()
+        overridePendingTransition(0, 0)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, 0, 0)
+        }
     }
 
     /**
